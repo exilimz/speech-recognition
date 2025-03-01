@@ -10,7 +10,7 @@ export default function Home() {
       <main className="flex-grow p-4 sm:p-6 md:p-12 bg-background">
         <div className="container mx-auto py-4 sm:py-8">
           <BrowserCheck>
-            <MicrophoneRequest onPermissionDenied={() => {}}>
+            <MicrophoneRequest>
               <SpeechToTextClient />
             </MicrophoneRequest>
           </BrowserCheck>

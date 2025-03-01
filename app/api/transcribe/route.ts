@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { transcribeAudio, validateApiKey, withRetry } from "@/lib/elevenlabs";
+import { transcribeAudio, validateApiKey, withRetry } from "@/lib/assemblyai";
 import { SpeechRecognitionOptions } from "@/lib/types";
 
 /**
@@ -28,13 +28,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Get optional parameters
-    const language = formData.get("language") as string | null;
-    const transcriptionHint = formData.get("transcription_hint") as string | null;
+    const language = formData.get("language_code") as string | null;
+    const punctuate = formData.get("punctuate") === "true";
+    const formatText = formData.get("format_text") === "true";
+    const speakerLabels = formData.get("speaker_labels") === "true";
 
     // Create options object
     const options: SpeechRecognitionOptions = {};
-    if (language) options.language = language;
-    if (transcriptionHint) options.transcriptionHint = transcriptionHint;
+    if (language) options.language_code = language;
+    if (punctuate !== undefined) options.punctuate = punctuate;
+    if (formatText !== undefined) options.format_text = formatText;
+    if (speakerLabels !== undefined) options.speaker_labels = speakerLabels;
 
     // Convert File to Blob
     const audioBlob = new Blob([await audioFile.arrayBuffer()], {

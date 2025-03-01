@@ -54,20 +54,20 @@
  - **User Instructions**: None
 
 ## API Integration
-- [x] Step 7: Create ElevenLabs API client
- - **Task**: Create a utility for communicating with the ElevenLabs speech recognition API
+- [x] Step 7: Create AssemblyAI API client
+ - **Task**: Create a utility for communicating with the AssemblyAI speech recognition API
  - **Files**:
-   - `lib/elevenlabs.ts`: Utility functions for API communication
+   - `lib/assemblyai.ts`: Utility functions for API communication
    - `lib/types.ts`: Type definitions for API requests and responses
  - **Step Dependencies**: Step 6
  - **User Instructions**: None
 
 - [x] Step 8: Create serverless API route for speech-to-text
- - **Task**: Create a serverless function to securely proxy API requests to ElevenLabs
+ - **Task**: Create a serverless function to securely proxy API requests to AssemblyAI
  - **Files**:
    - `app/api/transcribe/route.ts`: API route to handle speech-to-text conversion
  - **Step Dependencies**: Step 7
- - **User Instructions**: You'll need to create an ElevenLabs API key and add it to your environment variables (either in a `.env.local` file for local development or in Vercel's environment variables section when deploying)
+ - **User Instructions**: You'll need to create an AssemblyAI API key and add it to your environment variables (either in a `.env.local` file for local development or in Vercel's environment variables section when deploying)
 
 ## Error Handling
 - [ ] Step 9: Implement browser compatibility check
@@ -93,7 +93,7 @@
  - **Files**:
    - `components/error-message.tsx`: Component to display API error messages
    - `app/api-error/page.tsx`: Create error page for API errors
-   - `lib/elevenlabs.ts`: Update to handle API errors properly
+   - `lib/assemblyai.ts`: Update to handle API errors properly
  - **Step Dependencies**: Step 10
  - **User Instructions**: None
 
@@ -134,7 +134,7 @@
  - **User Instructions**: None
 
 ## Deployment
-- [ ] Step 16: Prepare for deployment
+- [x] Step 16: Prepare for deployment
  - **Task**: Configure the application for deployment on Vercel
  - **Files**:
    - `next.config.ts`: Update with any necessary configuration
@@ -144,5 +144,5 @@
  - **User Instructions**: 
    1. Create a Vercel account if you don't have one
    2. Connect your GitHub repository to Vercel
-   3. Add your ElevenLabs API key as an environment variable in Vercel
+   3. Add your AssemblyAI API key as an environment variable in Vercel
    4. Deploy the application

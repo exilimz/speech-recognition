@@ -8,12 +8,10 @@ import { useRouter } from "next/navigation";
 
 interface MicrophoneRequestProps {
   children: React.ReactNode;
-  onPermissionDenied: () => void;
 }
 
 export function MicrophoneRequest({ 
-  children, 
-  onPermissionDenied 
+  children
 }: MicrophoneRequestProps) {
   const [permissionState, setPermissionState] = useState<
     "unknown" | "granted" | "denied" | "prompt"
@@ -33,7 +31,7 @@ export function MicrophoneRequest({
             setPermissionState(permissionStatus.state);
             
             if (permissionStatus.state === "denied") {
-              onPermissionDenied();
+              router.push("/microphone-denied");
             }
           };
         })
@@ -45,7 +43,7 @@ export function MicrophoneRequest({
       // We'll check when the user tries to record
       setPermissionState("prompt");
     }
-  }, [onPermissionDenied]);
+  }, [router]);
 
   const requestMicrophoneAccess = async () => {
     try {
@@ -56,7 +54,7 @@ export function MicrophoneRequest({
     } catch (error) {
       console.error("Error requesting microphone access:", error);
       setPermissionState("denied");
-      onPermissionDenied();
+      router.push("/microphone-denied");
     }
   };
 

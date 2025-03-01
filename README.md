@@ -1,12 +1,12 @@
 # Speech-to-Text Converter
 
-A simple and elegant speech-to-text converter using the ElevenLabs API. Record your voice and convert it to text with high accuracy.
+A simple and elegant speech-to-text converter using the AssemblyAI API. Record your voice and convert it to text with high accuracy.
 
 ## Features
 
 - Record audio with a 10-second limit
 - Play back recorded audio
-- Convert speech to text using ElevenLabs API
+- Convert speech to text using AssemblyAI API
 - Clean and modern UI with mint green and cream aesthetic
 - Dark mode support
 - Responsive design for all devices
@@ -23,16 +23,15 @@ npm install
 
 ### API Configuration
 
-This application uses the ElevenLabs API for speech recognition. You need to obtain an API key from [ElevenLabs](https://elevenlabs.io/).
+This application uses the AssemblyAI API for speech recognition. You need to obtain an API key from [AssemblyAI](https://www.assemblyai.com/).
 
-1. Sign up for an account at [ElevenLabs](https://elevenlabs.io/)
-2. Navigate to your profile settings to find your API key
+1. Sign up for an account at [AssemblyAI](https://www.assemblyai.com/)
+2. Navigate to your dashboard to find your API key
 3. Create a `.env.local` file in the root of your project
 4. Add your API key to the `.env.local` file:
 
 ```
-ELEVENLABS_API_KEY=your_api_key_here
-ELEVENLABS_API_URL=https://api.elevenlabs.io/v1
+ASSEMBLYAI_API_KEY=your_api_key_here
 ```
 
 ### Development Server
@@ -57,7 +56,7 @@ The easiest way to deploy this application is to use the [Vercel Platform](https
 
 1. Push your code to a GitHub repository
 2. Import the project into Vercel
-3. Add your ElevenLabs API key as an environment variable in Vercel's project settings
+3. Add your AssemblyAI API key as an environment variable in Vercel's project settings
 4. Deploy the application
 
 ## Technologies Used
@@ -66,7 +65,7 @@ The easiest way to deploy this application is to use the [Vercel Platform](https
 - [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [shadcn/ui](https://ui.shadcn.com/) - UI components
-- [ElevenLabs API](https://elevenlabs.io/) - Speech recognition API
+- [AssemblyAI API](https://www.assemblyai.com/) - Speech recognition API
 - [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) - Audio recording and playback
 
 ## License
