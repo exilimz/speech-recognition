@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mic, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAudioRecorder } from "@/hooks/use-audio-recorder";
+import { RecordingTimer } from "@/components/recording-timer";
 
 interface AudioRecorderProps {
   onRecordingComplete: (blob: Blob) => void;
@@ -18,15 +18,28 @@ export function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
     startRecording,
     stopRecording,
     error,
-  } = useAudioRecorder();
+  } = useAudioRecorder({ maxDuration: 10 });
 
   const [showAlert, setShowAlert] = useState(false);
+  const [isNearLimit, setIsNearLimit] = useState(false);
 
-  // Calculate progress percentage (0-100) based on duration (0-10 seconds)
-  const progressPercentage = Math.min((duration / 10) * 100, 100);
+  // Check if we're approaching the time limit
+  useEffect(() => {
+    if (isRecording) {
+      setIsNearLimit(duration > 8); // Show warning when less than 2 seconds remain
+      
+      // Auto-stop at exactly 10 seconds
+      if (duration >= 10) {
+        stopRecording();
+      }
+    } else {
+      setIsNearLimit(false);
+    }
+  }, [duration, isRecording, stopRecording]);
 
   const handleStartRecording = async () => {
     setShowAlert(false);
+    setIsNearLimit(false);
     await startRecording();
   };
 
@@ -46,8 +59,8 @@ export function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
           <div className="flex justify-center">
             {isRecording ? (
               <div className="relative">
-                <div className="absolute -inset-1 rounded-full bg-primary/20 animate-pulse" />
-                <Mic className="h-12 sm:h-16 w-12 sm:w-16 text-primary" />
+                <div className={`absolute -inset-1 rounded-full ${isNearLimit ? 'bg-destructive/20 animate-pulse' : 'bg-primary/20 animate-pulse'}`} />
+                <Mic className={`h-12 sm:h-16 w-12 sm:w-16 ${isNearLimit ? 'text-destructive' : 'text-primary'}`} />
               </div>
             ) : (
               <Mic className="h-12 sm:h-16 w-12 sm:w-16 text-muted-foreground" />
@@ -55,12 +68,8 @@ export function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
           </div>
 
           {isRecording && (
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs sm:text-sm">
-                <span>Recording</span>
-                <span>{duration.toFixed(1)}s / 10s</span>
-              </div>
-              <Progress value={progressPercentage} className="h-2" />
+            <div className="flex justify-center">
+              <RecordingTimer duration={duration} maxDuration={10} />
             </div>
           )}
 
@@ -85,6 +94,14 @@ export function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
               </Button>
             )}
           </div>
+
+          {isNearLimit && isRecording && (
+            <Alert className="bg-amber-500/10 text-amber-500 border-amber-500/20">
+              <AlertDescription className="text-xs">
+                Recording will automatically stop in {(10 - duration).toFixed(1)} seconds
+              </AlertDescription>
+            </Alert>
+          )}
 
           {error && (
             <Alert variant="destructive">

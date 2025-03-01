@@ -117,7 +117,7 @@
  - **User Instructions**: None
 
 ## Testing and Finalization
-- [ ] Step 14: Add recording time indicator
+- [x] Step 14: Add recording time indicator
  - **Task**: Implement visual recording time indicator with 10-second maximum limit
  - **Files**:
    - `components/recording-timer.tsx`: Component to display recording time

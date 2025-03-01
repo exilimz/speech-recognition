@@ -6,7 +6,7 @@ import { AudioPlayer } from "@/components/audio-player";
 import { TextDisplay } from "@/components/text-display";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { Mic, Wand2 } from "lucide-react";
+import { Mic, Wand2, Clock } from "lucide-react";
 import { ApiError } from "@/components/api-error";
 import { ApiErrorResponse } from "@/lib/types";
 
@@ -98,6 +98,10 @@ export function SpeechToTextClient() {
         <p className="text-sm sm:text-base text-muted-foreground">
           Record your voice and convert it to text using AI
         </p>
+        <div className="flex items-center justify-center mt-1 text-xs text-muted-foreground">
+          <Clock className="h-3 w-3 mr-1" />
+          <span>Maximum recording time: 10 seconds</span>
+        </div>
       </div>
 
       {/* Show error message if there's an error */}
