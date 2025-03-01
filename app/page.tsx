@@ -1,5 +1,7 @@
 import { SpeechToTextClient } from "./page-client";
 import { SiteHeader } from "@/components/site-header";
+import { BrowserCheck } from "@/components/browser-check";
+import { MicrophoneRequest } from "@/components/microphone-request";
 
 export default function Home() {
   return (
@@ -7,7 +9,11 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-grow p-6 md:p-12 bg-background">
         <div className="container mx-auto py-8">
-          <SpeechToTextClient />
+          <BrowserCheck>
+            <MicrophoneRequest onPermissionDenied={() => {}}>
+              <SpeechToTextClient />
+            </MicrophoneRequest>
+          </BrowserCheck>
         </div>
       </main>
       <footer className="py-6 border-t border-border bg-muted/30">

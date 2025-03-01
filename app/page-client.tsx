@@ -7,6 +7,8 @@ import { TextDisplay } from "@/components/text-display";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { Mic, Wand2 } from "lucide-react";
+import { ApiError } from "@/components/api-error";
+import { ApiErrorResponse } from "@/lib/types";
 
 enum AppState {
   INITIAL = "initial",
@@ -14,6 +16,7 @@ enum AppState {
   RECORDED = "recorded",
   TRANSCRIBING = "transcribing",
   TRANSCRIBED = "transcribed",
+  ERROR = "error",
 }
 
 export function SpeechToTextClient() {
@@ -21,12 +24,15 @@ export function SpeechToTextClient() {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [transcribedText, setTranscribedText] = useState<string | null>(null);
+  const [error, setError] = useState<ApiErrorResponse | Error | string | null>(null);
 
   // Handle when recording is complete
   const handleRecordingComplete = (blob: Blob) => {
     setAudioBlob(blob);
     setAudioUrl(URL.createObjectURL(blob));
     setAppState(AppState.RECORDED);
+    // Clear any previous errors
+    setError(null);
   };
 
   // Reset the recording
@@ -37,6 +43,7 @@ export function SpeechToTextClient() {
     setAudioBlob(null);
     setAudioUrl(null);
     setTranscribedText(null);
+    setError(null);
     setAppState(AppState.INITIAL);
   };
 
@@ -46,6 +53,7 @@ export function SpeechToTextClient() {
 
     try {
       setAppState(AppState.TRANSCRIBING);
+      setError(null);
 
       // Create a FormData object to send the audio file
       const formData = new FormData();
@@ -58,7 +66,10 @@ export function SpeechToTextClient() {
       });
 
       if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
+        const errorData = await response.json();
+        setError(errorData);
+        setAppState(AppState.ERROR);
+        return;
       }
 
       const data = await response.json();
@@ -66,8 +77,17 @@ export function SpeechToTextClient() {
       setAppState(AppState.TRANSCRIBED);
     } catch (error) {
       console.error("Error transcribing audio:", error);
-      // In a real app, you would handle this error properly
-      setAppState(AppState.RECORDED);
+      setError(error instanceof Error ? error : "Failed to transcribe audio. Please try again.");
+      setAppState(AppState.ERROR);
+    }
+  };
+
+  // Retry transcription after an error
+  const handleRetry = () => {
+    if (audioBlob) {
+      handleTranscribe();
+    } else {
+      setAppState(AppState.INITIAL);
     }
   };
 
@@ -80,13 +100,18 @@ export function SpeechToTextClient() {
         </p>
       </div>
 
+      {/* Show error message if there's an error */}
+      {appState === AppState.ERROR && error && (
+        <ApiError error={error} onRetry={handleRetry} />
+      )}
+
       {/* Show recorder in initial state */}
       {appState === AppState.INITIAL && (
         <AudioRecorder onRecordingComplete={handleRecordingComplete} />
       )}
 
       {/* Show audio player after recording */}
-      {(appState === AppState.RECORDED || appState === AppState.TRANSCRIBED) && (
+      {(appState === AppState.RECORDED || appState === AppState.TRANSCRIBED || appState === AppState.ERROR) && audioUrl && (
         <AudioPlayer audioUrl={audioUrl} onReset={handleReset} />
       )}
 
@@ -122,6 +147,20 @@ export function SpeechToTextClient() {
           >
             <Mic className="h-5 w-5" />
             New Recording
+          </Button>
+        </div>
+      )}
+
+      {/* Show retry button in error state if no error component is shown */}
+      {appState === AppState.ERROR && !error && (
+        <div className="flex justify-center">
+          <Button
+            onClick={handleRetry}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <Wand2 className="h-5 w-5" />
+            Retry Transcription
           </Button>
         </div>
       )}

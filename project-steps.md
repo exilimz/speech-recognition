@@ -62,7 +62,7 @@
  - **Step Dependencies**: Step 6
  - **User Instructions**: None
 
-- [ ] Step 8: Create serverless API route for speech-to-text
+- [x] Step 8: Create serverless API route for speech-to-text
  - **Task**: Create a serverless function to securely proxy API requests to ElevenLabs
  - **Files**:
    - `app/api/transcribe/route.ts`: API route to handle speech-to-text conversion
@@ -79,7 +79,7 @@
  - **Step Dependencies**: Step 8
  - **User Instructions**: None
 
-- [ ] Step 10: Implement microphone access handling
+- [x] Step 10: Implement microphone access handling
  - **Task**: Create error handling for microphone access denial
  - **Files**:
    - `components/microphone-request.tsx`: Component to handle microphone permission request
@@ -88,7 +88,7 @@
  - **Step Dependencies**: Step 9
  - **User Instructions**: None
 
-- [ ] Step 11: Implement API error handling
+- [x] Step 11: Implement API error handling
  - **Task**: Create error handling for API errors and rate limiting
  - **Files**:
    - `components/error-message.tsx`: Component to display API error messages
@@ -98,7 +98,7 @@
  - **User Instructions**: None
 
 ## State Management
-- [ ] Step 12: Implement application state management
+- [x] Step 12: Implement application state management
  - **Task**: Create a context provider to manage application state across components
  - **Files**:
    - `context/audio-context.tsx`: Context provider for managing audio recording, playback, and transcription state
