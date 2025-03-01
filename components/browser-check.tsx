@@ -35,8 +35,8 @@ export function BrowserCheck({ children }: { children: React.ReactNode }) {
   // Show loading state while checking compatibility
   if (isCompatible === null) {
     return (
-      <div className="flex items-center justify-center min-h-[200px]">
-        <p className="text-muted-foreground">Checking browser compatibility...</p>
+      <div className="flex items-center justify-center min-h-[150px] sm:min-h-[200px]">
+        <p className="text-sm sm:text-base text-muted-foreground">Checking browser compatibility...</p>
       </div>
     );
   }
@@ -46,15 +46,17 @@ export function BrowserCheck({ children }: { children: React.ReactNode }) {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Browser Not Supported</AlertTitle>
-        <AlertDescription>
+        <AlertTitle className="text-sm sm:text-base">Browser Not Supported</AlertTitle>
+        <AlertDescription className="text-xs sm:text-sm">
           Your browser doesn't support the required features for audio recording.
           Please use a modern browser like Chrome, Firefox, or Edge.
         </AlertDescription>
-        <div className="mt-4">
+        <div className="mt-3 sm:mt-4">
           <Button 
-            variant="outline" 
+            variant="outline"
+            size="sm"
             onClick={() => router.push("/not-supported")}
+            className="text-xs sm:text-sm"
           >
             More Information
           </Button>

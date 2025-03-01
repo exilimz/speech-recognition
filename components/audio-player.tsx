@@ -32,17 +32,17 @@ export function AudioPlayer({ audioUrl, onReset }: AudioPlayerProps) {
 
   return (
     <Card className="w-full max-w-md mx-auto">
-      <CardContent className="pt-6">
+      <CardContent className="pt-4 sm:pt-6">
         <div className="space-y-4">
           <div className="space-y-2">
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-xs sm:text-sm">
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(duration)}</span>
             </div>
             <Progress value={progress} className="h-2" />
           </div>
 
-          <div className="flex justify-center space-x-4">
+          <div className="flex justify-center space-x-3 sm:space-x-4">
             <Button
               variant="outline"
               size="icon"
@@ -50,20 +50,20 @@ export function AudioPlayer({ audioUrl, onReset }: AudioPlayerProps) {
                 stop();
                 onReset();
               }}
-              className="rounded-full"
+              className="rounded-full h-10 w-10 sm:h-12 sm:w-12"
             >
-              <RotateCcw className="h-4 w-4" />
+              <RotateCcw className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
             <Button
               variant="default"
               size="icon"
               onClick={toggle}
-              className="rounded-full w-12 h-12"
+              className="rounded-full h-10 w-10 sm:h-12 sm:w-12"
             >
               {isPlaying ? (
-                <Pause className="h-5 w-5" />
+                <Pause className="h-4 w-4 sm:h-5 sm:w-5" />
               ) : (
-                <Play className="h-5 w-5" />
+                <Play className="h-4 w-4 sm:h-5 sm:w-5" />
               )}
             </Button>
           </div>

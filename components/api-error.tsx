@@ -56,26 +56,26 @@ export function ApiError({ error, onRetry }: ApiErrorProps) {
     errorCode === 429;
 
   return (
-    <Alert variant="destructive" className="mb-6">
+    <Alert variant="destructive" className="mb-4 sm:mb-6">
       <AlertCircle className="h-4 w-4" />
-      <AlertTitle>
+      <AlertTitle className="text-sm sm:text-base">
         {isApiKeyError 
           ? "API Key Error" 
           : isRateLimitError 
             ? "Rate Limit Exceeded" 
             : "Transcription Error"}
       </AlertTitle>
-      <AlertDescription className="flex flex-col gap-2">
-        <p>{errorMessage}</p>
+      <AlertDescription className="flex flex-col gap-1 sm:gap-2">
+        <p className="text-xs sm:text-sm">{errorMessage}</p>
         
         {isApiKeyError && (
-          <p className="text-sm">
+          <p className="text-xs sm:text-sm">
             Please check that your ElevenLabs API key is correctly configured in the server environment.
           </p>
         )}
         
         {isRateLimitError && (
-          <p className="text-sm">
+          <p className="text-xs sm:text-sm">
             You have exceeded the rate limit for the ElevenLabs API. Please wait a moment before trying again.
           </p>
         )}
@@ -84,10 +84,10 @@ export function ApiError({ error, onRetry }: ApiErrorProps) {
           <Button 
             variant="outline" 
             size="sm" 
-            className="mt-2 w-fit" 
+            className="mt-2 w-full sm:w-fit text-xs sm:text-sm" 
             onClick={onRetry}
           >
-            <RefreshCw className="mr-2 h-4 w-4" />
+            <RefreshCw className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
             Try Again
           </Button>
         )}

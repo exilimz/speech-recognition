@@ -40,11 +40,12 @@ export function ThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+      className="h-8 w-8 sm:h-10 sm:w-10"
     >
       {theme === "light" ? (
-        <Moon className="h-5 w-5" />
+        <Moon className="h-4 w-4 sm:h-5 sm:w-5" />
       ) : (
-        <Sun className="h-5 w-5" />
+        <Sun className="h-4 w-4 sm:h-5 sm:w-5" />
       )}
     </Button>
   );

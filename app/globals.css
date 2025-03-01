@@ -124,4 +124,29 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Responsive text wrapping */
+  p, h1, h2, h3, h4, h5, h6 {
+    text-wrap: pretty;
+  }
+  
+  /* Improve touch targets on mobile */
+  @media (max-width: 640px) {
+    button, 
+    .button,
+    [role="button"],
+    a {
+      @apply min-h-[44px] min-w-[44px];
+    }
+    
+    /* Adjust spacing for mobile */
+    .container {
+      @apply px-4;
+    }
+    
+    /* Improve card display on small screens */
+    .card {
+      @apply mx-0;
+    }
+  }
 }

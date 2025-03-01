@@ -62,8 +62,8 @@ export function MicrophoneRequest({
 
   if (permissionState === "unknown") {
     return (
-      <div className="flex items-center justify-center min-h-[200px]">
-        <p className="text-muted-foreground">Checking microphone access...</p>
+      <div className="flex items-center justify-center min-h-[150px] sm:min-h-[200px]">
+        <p className="text-sm sm:text-base text-muted-foreground">Checking microphone access...</p>
       </div>
     );
   }
@@ -72,15 +72,17 @@ export function MicrophoneRequest({
     return (
       <Alert variant="destructive">
         <MicOff className="h-4 w-4" />
-        <AlertTitle>Microphone Access Denied</AlertTitle>
-        <AlertDescription>
+        <AlertTitle className="text-sm sm:text-base">Microphone Access Denied</AlertTitle>
+        <AlertDescription className="text-xs sm:text-sm">
           This application requires microphone access to record audio.
           Please enable microphone access in your browser settings.
         </AlertDescription>
-        <div className="mt-4">
+        <div className="mt-3 sm:mt-4">
           <Button 
             variant="outline" 
+            size="sm"
             onClick={() => router.push("/microphone-denied")}
+            className="text-xs sm:text-sm"
           >
             How to Enable Microphone
           </Button>
@@ -91,13 +93,13 @@ export function MicrophoneRequest({
 
   if (permissionState === "prompt") {
     return (
-      <div className="flex flex-col items-center justify-center space-y-4 p-6 border rounded-lg">
-        <Mic className="h-12 w-12 text-primary" />
-        <h2 className="text-xl font-semibold">Microphone Access Required</h2>
-        <p className="text-center text-muted-foreground">
+      <div className="flex flex-col items-center justify-center space-y-3 sm:space-y-4 p-4 sm:p-6 border rounded-lg">
+        <Mic className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
+        <h2 className="text-lg sm:text-xl font-semibold">Microphone Access Required</h2>
+        <p className="text-center text-xs sm:text-sm text-muted-foreground max-w-xs sm:max-w-sm">
           This application needs access to your microphone to record audio for transcription.
         </p>
-        <Button onClick={requestMicrophoneAccess}>
+        <Button onClick={requestMicrophoneAccess} className="w-full sm:w-auto">
           Allow Microphone Access
         </Button>
       </div>

@@ -41,22 +41,22 @@ export function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
 
   return (
     <Card className="w-full max-w-md mx-auto">
-      <CardContent className="pt-6">
+      <CardContent className="pt-4 sm:pt-6">
         <div className="space-y-4">
           <div className="flex justify-center">
             {isRecording ? (
               <div className="relative">
                 <div className="absolute -inset-1 rounded-full bg-primary/20 animate-pulse" />
-                <Mic className="h-16 w-16 text-primary" />
+                <Mic className="h-12 sm:h-16 w-12 sm:w-16 text-primary" />
               </div>
             ) : (
-              <Mic className="h-16 w-16 text-muted-foreground" />
+              <Mic className="h-12 sm:h-16 w-12 sm:w-16 text-muted-foreground" />
             )}
           </div>
 
           {isRecording && (
             <div className="space-y-2">
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between text-xs sm:text-sm">
                 <span>Recording</span>
                 <span>{duration.toFixed(1)}s / 10s</span>
               </div>

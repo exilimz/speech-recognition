@@ -92,10 +92,10 @@ export function SpeechToTextClient() {
   };
 
   return (
-    <div className="flex flex-col space-y-8 w-full max-w-2xl mx-auto">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold mb-2">Speech-to-Text Converter</h1>
-        <p className="text-muted-foreground">
+    <div className="flex flex-col space-y-6 sm:space-y-8 w-full max-w-2xl mx-auto">
+      <div className="text-center px-2">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">Speech-to-Text Converter</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Record your voice and convert it to text using AI
         </p>
       </div>
@@ -120,7 +120,7 @@ export function SpeechToTextClient() {
         <div className="flex justify-center">
           <Button
             onClick={handleTranscribe}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full sm:w-auto"
             size="lg"
           >
             <Wand2 className="h-5 w-5" />
@@ -143,7 +143,7 @@ export function SpeechToTextClient() {
           <Button
             onClick={handleReset}
             variant="outline"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full sm:w-auto"
           >
             <Mic className="h-5 w-5" />
             New Recording
@@ -157,7 +157,7 @@ export function SpeechToTextClient() {
           <Button
             onClick={handleRetry}
             variant="outline"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full sm:w-auto"
           >
             <Wand2 className="h-5 w-5" />
             Retry Transcription

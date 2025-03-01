@@ -107,7 +107,7 @@
  - **User Instructions**: None
 
 ## Responsive Design
-- [ ] Step 13: Implement responsive design
+- [x] Step 13: Implement responsive design
  - **Task**: Ensure the application is mobile-friendly and responsive on all devices
  - **Files**:
    - `app/globals.css`: Add responsive styles
