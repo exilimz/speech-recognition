@@ -54,7 +54,7 @@
  - **User Instructions**: None
 
 ## API Integration
-- [ ] Step 7: Create ElevenLabs API client
+- [x] Step 7: Create ElevenLabs API client
  - **Task**: Create a utility for communicating with the ElevenLabs speech recognition API
  - **Files**:
    - `lib/elevenlabs.ts`: Utility functions for API communication
