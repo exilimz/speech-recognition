@@ -1,7 +1,6 @@
-import { Play, Pause, RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { Play, Pause, RotateCcw, Headphones } from "lucide-react";
+import { RetroButton } from "@/components/ui/retro-button";
+import { NesBox, NesBoxHeader, NesBoxTitle, NesBoxContent, NesBoxFooter } from "@/components/ui/nes-box";
 import { useAudioPlayer } from "@/hooks/use-audio-player";
 
 interface AudioPlayerProps {
@@ -31,44 +30,65 @@ export function AudioPlayer({ audioUrl, onReset }: AudioPlayerProps) {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardContent className="pt-4 sm:pt-6">
+    <NesBox variant="secondary" className="w-full max-w-md mx-auto">
+      <NesBoxHeader>
+        <div className="mr-3">
+          <Headphones className="h-5 w-5 sm:h-6 sm:w-6" />
+        </div>
+        <NesBoxTitle className="text-sm sm:text-base">
+          <span className="pixel-font">AUDIO PLAYBACK</span>
+        </NesBoxTitle>
+      </NesBoxHeader>
+      
+      <NesBoxContent className="pt-2 sm:pt-4">
         <div className="space-y-4">
           <div className="space-y-2">
-            <div className="flex justify-between text-xs sm:text-sm">
+            <div className="flex justify-between text-xs sm:text-sm pixel-font">
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(duration)}</span>
             </div>
-            <Progress value={progress} className="h-2" />
+            
+            {/* Custom progress bar with NES styling */}
+            <div className="h-4 w-full bg-background border-2 border-foreground relative">
+              <div 
+                className="h-full bg-primary" 
+                style={{ width: `${progress}%` }}
+              />
+            </div>
           </div>
 
           <div className="flex justify-center space-x-3 sm:space-x-4">
-            <Button
+            <RetroButton
               variant="outline"
-              size="icon"
+              size="icon-sm"
               onClick={() => {
                 stop();
                 onReset();
               }}
-              className="rounded-full h-10 w-10 sm:h-12 sm:w-12"
             >
-              <RotateCcw className="h-4 w-4 sm:h-5 sm:w-5" />
-            </Button>
-            <Button
-              variant="default"
+              <RotateCcw className="h-4 w-4" />
+            </RetroButton>
+            
+            <RetroButton
+              variant={isPlaying ? "secondary" : "default"}
               size="icon"
               onClick={toggle}
-              className="rounded-full h-10 w-10 sm:h-12 sm:w-12"
             >
               {isPlaying ? (
-                <Pause className="h-4 w-4 sm:h-5 sm:w-5" />
+                <Pause className="h-5 w-5" />
               ) : (
-                <Play className="h-4 w-4 sm:h-5 sm:w-5" />
+                <Play className="h-5 w-5" />
               )}
-            </Button>
+            </RetroButton>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </NesBoxContent>
+      
+      <NesBoxFooter className="text-xs">
+        <span className="pixel-font">
+          {isPlaying ? "Now Playing" : "Ready to Play"}
+        </span>
+      </NesBoxFooter>
+    </NesBox>
   );
 } 

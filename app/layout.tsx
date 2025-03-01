@@ -1,20 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Press_Start_2P, VT323 } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Pixel-style font for headings and UI elements
+const pressStart2P = Press_Start_2P({
+  weight: "400",
+  variable: "--font-pixel-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Pixel-style monospace font for code and terminal-like text
+const vt323 = VT323({
+  weight: "400",
+  variable: "--font-pixel-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Speech-to-Text Converter",
-  description: "A simple and elegant speech-to-text converter using ElevenLabs API",
+  title: "NERV Speech Recognition",
+  description: "Evangelion-inspired speech-to-text converter using AssemblyAI API",
 };
 
 export default function RootLayout({
@@ -47,7 +53,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${pressStart2P.variable} ${vt323.variable} antialiased`}
       >
         {children}
       </body>

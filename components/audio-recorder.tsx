@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Mic, Square } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { RetroButton } from "@/components/ui/retro-button";
+import { NesBox, NesBoxHeader, NesBoxTitle, NesBoxContent, NesBoxFooter } from "@/components/ui/nes-box";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAudioRecorder } from "@/hooks/use-audio-recorder";
 import { RecordingTimer } from "@/components/recording-timer";
@@ -37,6 +37,14 @@ export function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
     }
   }, [duration, isRecording, stopRecording]);
 
+  // Move the callback to useEffect to avoid calling during render
+  useEffect(() => {
+    // When recording is complete and we have a blob, call the callback
+    if (audioBlob && !isRecording) {
+      onRecordingComplete(audioBlob);
+    }
+  }, [audioBlob, isRecording, onRecordingComplete]);
+
   const handleStartRecording = async () => {
     setShowAlert(false);
     setIsNearLimit(false);
@@ -47,19 +55,23 @@ export function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
     stopRecording();
   };
 
-  // When recording is complete and we have a blob, call the callback
-  if (audioBlob && !isRecording) {
-    onRecordingComplete(audioBlob);
-  }
-
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardContent className="pt-4 sm:pt-6">
+    <NesBox className="w-full max-w-md mx-auto">
+      <NesBoxHeader>
+        <div className="mr-3">
+          <Mic className="h-5 w-5 sm:h-6 sm:w-6" />
+        </div>
+        <NesBoxTitle className="text-sm sm:text-base">
+          <span className="pixel-font">AUDIO RECORDER</span>
+        </NesBoxTitle>
+      </NesBoxHeader>
+      
+      <NesBoxContent className="pt-2 sm:pt-4">
         <div className="space-y-4">
           <div className="flex justify-center">
             {isRecording ? (
               <div className="relative">
-                <div className={`absolute -inset-1 rounded-full ${isNearLimit ? 'bg-destructive/20 animate-pulse' : 'bg-primary/20 animate-pulse'}`} />
+                <div className={`absolute -inset-1 ${isNearLimit ? 'bg-destructive/20 animate-pulse' : 'bg-primary/20 animate-pulse'}`} />
                 <Mic className={`h-12 sm:h-16 w-12 sm:w-16 ${isNearLimit ? 'text-destructive' : 'text-primary'}`} />
               </div>
             ) : (
@@ -75,29 +87,27 @@ export function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
 
           <div className="flex justify-center">
             {isRecording ? (
-              <Button
+              <RetroButton
                 variant="destructive"
-                size="lg"
+                size="icon"
                 onClick={handleStopRecording}
-                className="rounded-full w-12 h-12 p-0"
               >
                 <Square className="h-5 w-5" />
-              </Button>
+              </RetroButton>
             ) : (
-              <Button
+              <RetroButton
                 variant="default"
-                size="lg"
+                size="icon"
                 onClick={handleStartRecording}
-                className="rounded-full w-12 h-12 p-0"
               >
                 <Mic className="h-5 w-5" />
-              </Button>
+              </RetroButton>
             )}
           </div>
 
           {isNearLimit && isRecording && (
             <Alert className="bg-amber-500/10 text-amber-500 border-amber-500/20">
-              <AlertDescription className="text-xs">
+              <AlertDescription className="text-xs pixel-font">
                 Recording will automatically stop in {(10 - duration).toFixed(1)} seconds
               </AlertDescription>
             </Alert>
@@ -105,11 +115,17 @@ export function AudioRecorder({ onRecordingComplete }: AudioRecorderProps) {
 
           {error && (
             <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription className="text-xs pixel-font">{error}</AlertDescription>
             </Alert>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </NesBoxContent>
+      
+      <NesBoxFooter className="text-xs">
+        <span className="pixel-font">
+          {isRecording ? "Press STOP when finished" : "Press MIC to start recording"}
+        </span>
+      </NesBoxFooter>
+    </NesBox>
   );
 } 

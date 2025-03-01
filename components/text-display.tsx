@@ -1,5 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LoadingState } from "@/components/loading-state";
+import { NesBox, NesBoxHeader, NesBoxTitle, NesBoxContent, NesBoxFooter } from "@/components/ui/nes-box";
+import { TypewriterEffect } from "@/components/typewriter-effect";
+import { MessageSquare } from "lucide-react";
 
 interface TextDisplayProps {
   text: string | null;
@@ -7,15 +9,25 @@ interface TextDisplayProps {
 }
 
 export function TextDisplay({ text, isLoading }: TextDisplayProps) {
+  // Choose the appropriate NES box variant
+  const boxVariant = text ? "terminal" : "primary";
+  
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader className="pb-2 sm:pb-4">
-        <CardTitle className="flex items-center justify-between text-base sm:text-lg">
-          <span>Transcription</span>
+    <NesBox 
+      variant={boxVariant}
+      className="w-full max-w-md mx-auto"
+    >
+      <NesBoxHeader>
+        <div className="mr-3">
+          <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6" />
+        </div>
+        <NesBoxTitle className="text-sm sm:text-base flex items-center justify-between w-full">
+          <span className="pixel-font">NERV TRANSCRIPTION</span>
           {isLoading && <LoadingState type="inline" size="sm" />}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
+        </NesBoxTitle>
+      </NesBoxHeader>
+      
+      <NesBoxContent>
         {isLoading ? (
           <div className="h-24 sm:h-32 relative">
             <LoadingState 
@@ -26,15 +38,29 @@ export function TextDisplay({ text, isLoading }: TextDisplayProps) {
             />
           </div>
         ) : text ? (
-          <div className="prose prose-mint max-w-none">
-            <p className="whitespace-pre-wrap break-words text-sm sm:text-base">{text}</p>
+          <div className="max-w-none">
+            <p className="whitespace-pre-wrap break-words text-sm sm:text-base font-mono">
+              <TypewriterEffect 
+                text={text} 
+                speed={30}
+                className="pixel-font"
+              />
+            </p>
           </div>
         ) : (
-          <div className="h-24 sm:h-32 flex items-center justify-center text-sm sm:text-base text-muted-foreground">
+          <div className="h-24 sm:h-32 flex items-center justify-center text-xs sm:text-sm pixel-font">
             Record audio to see transcription here
           </div>
         )}
-      </CardContent>
-    </Card>
+      </NesBoxContent>
+      
+      <NesBoxFooter className="text-xs">
+        {text ? (
+          <span>Press A to continue</span>
+        ) : (
+          <span>NERV System v1.0.1</span>
+        )}
+      </NesBoxFooter>
+    </NesBox>
   );
 } 

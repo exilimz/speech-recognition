@@ -34,8 +34,25 @@ export async function uploadAudioToTemporaryUrl(audioBlob: Blob): Promise<string
   try {
     // Upload the file to get a temporary URL
     const uploadResponse = await client.files.upload(file);
-    // The upload response should contain a URL
-    return (uploadResponse as any).url;
+    console.log("Upload response:", uploadResponse);
+    
+    // According to AssemblyAI docs, the upload response should directly be the URL string
+    if (typeof uploadResponse === 'string') {
+      return uploadResponse;
+    } 
+    
+    // Handle object response with proper type assertion
+    const responseObj = uploadResponse as Record<string, unknown>;
+    
+    if (responseObj && 'upload_url' in responseObj) {
+      return responseObj.upload_url as string;
+    } 
+    
+    if (responseObj && 'url' in responseObj) {
+      return responseObj.url as string;
+    }
+    
+    throw new Error("Invalid upload response format from AssemblyAI");
   } catch (error) {
     console.error("Error uploading audio:", error);
     throw error;
@@ -61,31 +78,29 @@ export async function transcribeAudio(
 
     // Upload the audio to get a temporary URL
     const audioUrl = await uploadAudioToTemporaryUrl(audioBlob);
+    console.log("Audio URL for transcription:", audioUrl);
 
-    // Configure transcription options
-    const config: any = {
-      audio_url: audioUrl
+    // Configure transcription options according to AssemblyAI SDK
+    const transcriptionParams = {
+      audio_url: audioUrl,
+      ...(options.language_code && { language_code: options.language_code }),
+      ...(options.punctuate !== undefined && { punctuate: options.punctuate }),
+      ...(options.format_text !== undefined && { format_text: options.format_text }),
+      ...(options.speaker_labels !== undefined && { speaker_labels: options.speaker_labels })
     };
 
-    // Add optional parameters if provided
-    if (options.language_code) {
-      config.language_code = options.language_code;
-    }
-    
-    if (options.punctuate !== undefined) {
-      config.punctuate = options.punctuate;
-    }
-    
-    if (options.format_text !== undefined) {
-      config.format_text = options.format_text;
-    }
-    
-    if (options.speaker_labels !== undefined) {
-      config.speaker_labels = options.speaker_labels;
-    }
+    console.log("Transcription params:", transcriptionParams);
 
     // Transcribe the audio
-    const transcript = await client.transcripts.transcribe(config);
+    const transcript = await client.transcripts.transcribe({
+      audio_url: audioUrl,
+      ...(options.language_code && { language_code: options.language_code }),
+      ...(options.punctuate !== undefined && { punctuate: options.punctuate }),
+      ...(options.format_text !== undefined && { format_text: options.format_text }),
+      ...(options.speaker_labels !== undefined && { speaker_labels: options.speaker_labels })
+    });
+    
+    console.log("Transcription response:", transcript);
 
     // Map the response to our standardized format
     const response: SpeechRecognitionResponse = {

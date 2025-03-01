@@ -7,8 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-pixel-sans);
+  --font-mono: var(--font-pixel-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,75 +46,75 @@
 }
 
 :root {
-  /* Mint green and cream color scheme */
-  --background: oklch(0.98 0.02 140); /* Cream background */
-  --foreground: oklch(0.3 0.04 160); /* Dark mint text */
-  --card: oklch(1 0 0); /* White card */
-  --card-foreground: oklch(0.3 0.04 160); /* Dark mint text */
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.3 0.04 160);
-  --primary: oklch(0.7 0.15 160); /* Mint green primary */
-  --primary-foreground: oklch(0.98 0.02 140); /* Cream text on primary */
-  --secondary: oklch(0.9 0.05 160); /* Light mint secondary */
-  --secondary-foreground: oklch(0.3 0.04 160); /* Dark mint text */
-  --muted: oklch(0.95 0.03 140); /* Muted cream */
-  --muted-foreground: oklch(0.5 0.05 160); /* Medium mint text */
-  --accent: oklch(0.85 0.1 160); /* Accent mint */
-  --accent-foreground: oklch(0.3 0.04 160); /* Dark mint text */
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.85 0.05 160); /* Light mint border */
-  --input: oklch(0.85 0.05 160); /* Light mint input */
-  --ring: oklch(0.7 0.15 160); /* Mint green ring */
-  --chart-1: oklch(0.7 0.15 160);
-  --chart-2: oklch(0.6 0.12 160);
-  --chart-3: oklch(0.5 0.1 160);
-  --chart-4: oklch(0.8 0.15 160);
-  --chart-5: oklch(0.75 0.12 160);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.95 0.03 140); /* Cream sidebar */
-  --sidebar-foreground: oklch(0.3 0.04 160); /* Dark mint text */
-  --sidebar-primary: oklch(0.7 0.15 160); /* Mint green primary */
-  --sidebar-primary-foreground: oklch(0.98 0.02 140); /* Cream text */
-  --sidebar-accent: oklch(0.85 0.1 160); /* Accent mint */
-  --sidebar-accent-foreground: oklch(0.3 0.04 160); /* Dark mint text */
-  --sidebar-border: oklch(0.85 0.05 160); /* Light mint border */
-  --sidebar-ring: oklch(0.7 0.15 160); /* Mint green ring */
+  /* Evangelion-inspired color scheme */
+  --background: #E1D6F8; /* Languid Lavender - background */
+  --foreground: #052A6A; /* Royal Blue Dark - text */
+  --card: #CDD3F4; /* Periwinkle Crayola - card */
+  --card-foreground: #052A6A; /* Royal Blue Dark - text */
+  --popover: #CDD3F4;
+  --popover-foreground: #052A6A;
+  --primary: #25629B; /* Lapis Lazuli - primary */
+  --primary-foreground: #E1D6F8; /* Languid Lavender - text on primary */
+  --secondary: #03387D; /* Dark Cornflower Blue - secondary */
+  --secondary-foreground: #E1D6F8; /* Languid Lavender - text on secondary */
+  --muted: #CDD3F4; /* Periwinkle Crayola - muted */
+  --muted-foreground: #25629B; /* Lapis Lazuli - muted text */
+  --accent: #03387D; /* Dark Cornflower Blue - accent */
+  --accent-foreground: #E1D6F8; /* Languid Lavender - text on accent */
+  --destructive: #FF6B6B; /* Red for destructive actions */
+  --destructive-foreground: #FFFFFF;
+  --border: #25629B; /* Lapis Lazuli - border */
+  --input: #CDD3F4; /* Periwinkle Crayola - input */
+  --ring: #25629B; /* Lapis Lazuli - ring */
+  --chart-1: #25629B;
+  --chart-2: #03387D;
+  --chart-3: #052A6A;
+  --chart-4: #E1D6F8;
+  --chart-5: #CDD3F4;
+  --radius: 0.25rem; /* Reduced radius for more retro/angular look */
+  --sidebar: #CDD3F4; /* Periwinkle Crayola - sidebar */
+  --sidebar-foreground: #052A6A; /* Royal Blue Dark - text */
+  --sidebar-primary: #25629B; /* Lapis Lazuli - primary */
+  --sidebar-primary-foreground: #E1D6F8; /* Languid Lavender - text */
+  --sidebar-accent: #03387D; /* Dark Cornflower Blue - accent */
+  --sidebar-accent-foreground: #E1D6F8; /* Languid Lavender - text */
+  --sidebar-border: #25629B; /* Lapis Lazuli - border */
+  --sidebar-ring: #25629B; /* Lapis Lazuli - ring */
 }
 
 .dark {
-  --background: oklch(0.2 0.04 160); /* Dark mint background */
-  --foreground: oklch(0.98 0.02 140); /* Cream text */
-  --card: oklch(0.25 0.04 160); /* Slightly lighter mint card */
-  --card-foreground: oklch(0.98 0.02 140); /* Cream text */
-  --popover: oklch(0.25 0.04 160);
-  --popover-foreground: oklch(0.98 0.02 140);
-  --primary: oklch(0.7 0.15 160); /* Mint green primary */
-  --primary-foreground: oklch(0.2 0.04 160); /* Dark mint text on primary */
-  --secondary: oklch(0.3 0.05 160); /* Darker mint secondary */
-  --secondary-foreground: oklch(0.98 0.02 140); /* Cream text */
-  --muted: oklch(0.3 0.04 160); /* Muted dark mint */
-  --muted-foreground: oklch(0.8 0.05 140); /* Light cream text */
-  --accent: oklch(0.4 0.08 160); /* Accent dark mint */
-  --accent-foreground: oklch(0.98 0.02 140); /* Cream text */
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.35 0.05 160); /* Darker mint border */
-  --input: oklch(0.35 0.05 160); /* Darker mint input */
-  --ring: oklch(0.5 0.1 160); /* Medium mint ring */
-  --chart-1: oklch(0.7 0.15 160);
-  --chart-2: oklch(0.6 0.12 160);
-  --chart-3: oklch(0.5 0.1 160);
-  --chart-4: oklch(0.8 0.15 160);
-  --chart-5: oklch(0.75 0.12 160);
-  --sidebar: oklch(0.25 0.04 160); /* Slightly lighter mint sidebar */
-  --sidebar-foreground: oklch(0.98 0.02 140); /* Cream text */
-  --sidebar-primary: oklch(0.7 0.15 160); /* Mint green primary */
-  --sidebar-primary-foreground: oklch(0.98 0.02 140); /* Cream text */
-  --sidebar-accent: oklch(0.4 0.08 160); /* Accent dark mint */
-  --sidebar-accent-foreground: oklch(0.98 0.02 140); /* Cream text */
-  --sidebar-border: oklch(0.35 0.05 160); /* Darker mint border */
-  --sidebar-ring: oklch(0.5 0.1 160); /* Medium mint ring */
+  --background: #052A6A; /* Royal Blue Dark - background */
+  --foreground: #E1D6F8; /* Languid Lavender - text */
+  --card: #03387D; /* Dark Cornflower Blue - card */
+  --card-foreground: #E1D6F8; /* Languid Lavender - text */
+  --popover: #03387D;
+  --popover-foreground: #E1D6F8;
+  --primary: #25629B; /* Lapis Lazuli - primary */
+  --primary-foreground: #E1D6F8; /* Languid Lavender - text on primary */
+  --secondary: #CDD3F4; /* Periwinkle Crayola - secondary */
+  --secondary-foreground: #052A6A; /* Royal Blue Dark - text on secondary */
+  --muted: #03387D; /* Dark Cornflower Blue - muted */
+  --muted-foreground: #CDD3F4; /* Periwinkle Crayola - muted text */
+  --accent: #25629B; /* Lapis Lazuli - accent */
+  --accent-foreground: #E1D6F8; /* Languid Lavender - text on accent */
+  --destructive: #FF6B6B; /* Red for destructive actions */
+  --destructive-foreground: #FFFFFF;
+  --border: #25629B; /* Lapis Lazuli - border */
+  --input: #03387D; /* Dark Cornflower Blue - input */
+  --ring: #25629B; /* Lapis Lazuli - ring */
+  --chart-1: #25629B;
+  --chart-2: #03387D;
+  --chart-3: #052A6A;
+  --chart-4: #E1D6F8;
+  --chart-5: #CDD3F4;
+  --sidebar: #03387D; /* Dark Cornflower Blue - sidebar */
+  --sidebar-foreground: #E1D6F8; /* Languid Lavender - text */
+  --sidebar-primary: #25629B; /* Lapis Lazuli - primary */
+  --sidebar-primary-foreground: #E1D6F8; /* Languid Lavender - text */
+  --sidebar-accent: #CDD3F4; /* Periwinkle Crayola - accent */
+  --sidebar-accent-foreground: #052A6A; /* Royal Blue Dark - text on accent */
+  --sidebar-border: #25629B; /* Lapis Lazuli - border */
+  --sidebar-ring: #25629B; /* Lapis Lazuli - ring */
 }
 
 @layer base {
@@ -123,6 +123,14 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Pixel-perfect rendering for pixel fonts */
+  .pixel-font {
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: never;
   }
   
   /* Responsive text wrapping */
@@ -148,5 +156,213 @@
     .card {
       @apply mx-0;
     }
+  }
+}
+
+/* NES-style box with pixelated corners */
+.nes-box {
+  position: relative;
+  border-style: solid;
+  border-width: 4px;
+  image-rendering: pixelated;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Pixelated corners for NES-style box */
+.nes-box::before,
+.nes-box::after,
+.nes-box > :first-child::before,
+.nes-box > :first-child::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: var(--foreground);
+  z-index: 1;
+}
+
+/* Top-left corner */
+.nes-box::before {
+  top: -4px;
+  left: -4px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+/* Top-right corner */
+.nes-box::after {
+  top: -4px;
+  right: -4px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+/* Bottom-left corner */
+.nes-box > :first-child::before {
+  bottom: -4px;
+  left: -4px;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+/* Bottom-right corner */
+.nes-box > :first-child::after {
+  bottom: -4px;
+  right: -4px;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+/* Terminal variant blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.nes-box[data-variant="terminal"]::after {
+  content: "█";
+  display: inline-block;
+  animation: blink 1s step-end infinite;
+  font-family: monospace;
+  margin-left: 2px;
+}
+
+/* Typewriter cursor animation */
+.animate-blink {
+  display: inline-block;
+  animation: blink 1s step-end infinite;
+  font-family: monospace;
+  margin-left: 2px;
+}
+
+/* Add blink animation for typewriter cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Add responsive design rules for retro UI */
+
+/* Pixel scaling for retro elements */
+@media (max-width: 640px) {
+  /* Adjust pixel corners for smaller screens */
+  .nes-box::before,
+  .nes-box::after,
+  .nes-box > :first-child::before,
+  .nes-box > :first-child::after {
+    width: 6px;
+    height: 6px;
+  }
+  
+  /* Reduce border width on small screens */
+  .nes-box {
+    border-width: 3px;
+  }
+  
+  /* Adjust card corners */
+  .card::before,
+  .card::after,
+  .card > :first-child::before,
+  .card > :first-child::after {
+    width: 6px;
+    height: 6px;
+  }
+  
+  /* Reduce padding in NES boxes */
+  .nes-box-content {
+    padding: 0.75rem !important;
+  }
+  
+  /* Ensure pixel fonts are readable */
+  .pixel-font {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  
+  /* Improve spacing for retro buttons */
+  .retro-button {
+    padding: 0.5rem 0.75rem;
+    min-height: 2.5rem;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Adjust layout spacing */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Optimize grid layouts */
+  .grid {
+    gap: 1rem;
+  }
+}
+
+/* Ensure retro UI elements are accessible */
+@media (prefers-reduced-motion) {
+  /* Disable animations for users who prefer reduced motion */
+  .animate-blink,
+  .nes-box[data-variant="terminal"]::after {
+    animation: none;
+  }
+  
+  /* Replace blinking with static indicator */
+  .animate-blink {
+    opacity: 1;
+  }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  :root {
+    --border: #000000;
+    --foreground: #000000;
+    --background: #ffffff;
+    --primary: #000000;
+    --primary-foreground: #ffffff;
+  }
+  
+  .dark {
+    --border: #ffffff;
+    --foreground: #ffffff;
+    --background: #000000;
+    --primary: #ffffff;
+    --primary-foreground: #000000;
+  }
+  
+  /* Increase border contrast */
+  .nes-box,
+  .card {
+    border-width: 2px;
+    border-color: currentColor;
+  }
+}
+
+/* Print styles for retro UI */
+@media print {
+  /* Simplify UI for printing */
+  .nes-box,
+  .card {
+    border: 2px solid #000;
+    box-shadow: none;
+  }
+  
+  /* Remove decorative elements */
+  .nes-box::before,
+  .nes-box::after,
+  .nes-box > :first-child::before,
+  .nes-box > :first-child::after,
+  .card::before,
+  .card::after,
+  .card > :first-child::before,
+  .card > :first-child::after {
+    display: none;
+  }
+  
+  /* Ensure text is readable */
+  .pixel-font {
+    font-family: monospace;
   }
 }

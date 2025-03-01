@@ -2,7 +2,8 @@
 description: Follow these rules for every request
 globs: 
 ---
-- We are building a simple speech recognition browser app
+- We are changing the UI and UX of our working speech recognition app
 - Find the steps in [project-steps.md](mdc:project-steps.md)
-- Work on whatever step(s) I tell you to work on, and only work on those steps at once
-- Once those steps are done, mark as completed, then stop I will give you further instructions. 
+- Work on whatever step(s) I tell you to work on, and ONLY work on those steps at once
+- never work on more steps than I tell you to, you might break stuff.
+- Once those steps are done, mark as completed in [project-steps.md](mdc:project-steps.md), then stop. I will give you further instructions. 
