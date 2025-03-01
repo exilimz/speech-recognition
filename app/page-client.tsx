@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { AudioRecorder } from "@/components/audio-recorder";
 import { AudioPlayer } from "@/components/audio-player";
 import { TextDisplay } from "@/components/text-display";
 import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
 import { Mic, Wand2, Clock } from "lucide-react";
 import { ApiError } from "@/components/api-error";
 import { ApiErrorResponse } from "@/lib/types";
+import { LoadingState } from "@/components/loading-state";
 
 enum AppState {
   INITIAL = "initial",
@@ -17,6 +17,7 @@ enum AppState {
   TRANSCRIBING = "transcribing",
   TRANSCRIBED = "transcribed",
   ERROR = "error",
+  LOADING = "loading",
 }
 
 export function SpeechToTextClient() {
@@ -25,33 +26,60 @@ export function SpeechToTextClient() {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [transcribedText, setTranscribedText] = useState<string | null>(null);
   const [error, setError] = useState<ApiErrorResponse | Error | string | null>(null);
+  const [isInitializing, setIsInitializing] = useState(true);
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+  const [isRetrying, setIsRetrying] = useState(false);
+
+  // Simulate initialization process (checking permissions, loading resources, etc.)
+  useState(() => {
+    // In a real app, this would be actual initialization logic
+    const timer = setTimeout(() => {
+      setIsInitializing(false);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  });
 
   // Handle when recording is complete
   const handleRecordingComplete = (blob: Blob) => {
-    setAudioBlob(blob);
-    setAudioUrl(URL.createObjectURL(blob));
-    setAppState(AppState.RECORDED);
-    // Clear any previous errors
-    setError(null);
+    setAppState(AppState.LOADING);
+    
+    // Simulate processing the audio blob
+    setTimeout(() => {
+      setAudioBlob(blob);
+      setAudioUrl(URL.createObjectURL(blob));
+      setAppState(AppState.RECORDED);
+      // Clear any previous errors
+      setError(null);
+    }, 500);
   };
 
   // Reset the recording
-  const handleReset = () => {
-    if (audioUrl) {
-      URL.revokeObjectURL(audioUrl);
-    }
-    setAudioBlob(null);
-    setAudioUrl(null);
-    setTranscribedText(null);
-    setError(null);
-    setAppState(AppState.INITIAL);
-  };
+  const handleReset = useCallback(() => {
+    setIsResetting(true);
+    setAppState(AppState.LOADING);
+    
+    // Simulate cleanup
+    setTimeout(() => {
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+      }
+      setAudioBlob(null);
+      setAudioUrl(null);
+      setTranscribedText(null);
+      setError(null);
+      setAppState(AppState.INITIAL);
+      setIsResetting(false);
+    }, 300);
+  }, [audioUrl]);
 
   // Transcribe the audio
-  const handleTranscribe = async () => {
+  const handleTranscribe = useCallback(async () => {
     if (!audioBlob) return;
 
     try {
+      setIsTranscribing(true);
       setAppState(AppState.TRANSCRIBING);
       setError(null);
 
@@ -69,27 +97,48 @@ export function SpeechToTextClient() {
         const errorData = await response.json();
         setError(errorData);
         setAppState(AppState.ERROR);
+        setIsTranscribing(false);
         return;
       }
 
       const data = await response.json();
       setTranscribedText(data.text);
       setAppState(AppState.TRANSCRIBED);
+      setIsTranscribing(false);
     } catch (error) {
       console.error("Error transcribing audio:", error);
       setError(error instanceof Error ? error : "Failed to transcribe audio. Please try again.");
       setAppState(AppState.ERROR);
+      setIsTranscribing(false);
     }
-  };
+  }, [audioBlob]);
 
   // Retry transcription after an error
-  const handleRetry = () => {
-    if (audioBlob) {
-      handleTranscribe();
-    } else {
-      setAppState(AppState.INITIAL);
-    }
-  };
+  const handleRetry = useCallback(() => {
+    setIsRetrying(true);
+    
+    setTimeout(() => {
+      if (audioBlob) {
+        handleTranscribe();
+      } else {
+        setAppState(AppState.INITIAL);
+      }
+      setIsRetrying(false);
+    }, 300);
+  }, [audioBlob, handleTranscribe]);
+
+  // Show initial loading state
+  if (isInitializing) {
+    return (
+      <div className="flex flex-col space-y-6 sm:space-y-8 w-full max-w-2xl mx-auto">
+        <LoadingState 
+          type="full" 
+          text="Initializing application..." 
+          size="lg" 
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col space-y-6 sm:space-y-8 w-full max-w-2xl mx-auto">
@@ -109,6 +158,15 @@ export function SpeechToTextClient() {
         <ApiError error={error} onRetry={handleRetry} />
       )}
 
+      {/* Show loading state */}
+      {appState === AppState.LOADING && (
+        <LoadingState 
+          type="card" 
+          text="Processing audio..." 
+          size="md" 
+        />
+      )}
+
       {/* Show recorder in initial state */}
       {appState === AppState.INITIAL && (
         <AudioRecorder onRecordingComplete={handleRecordingComplete} />
@@ -126,9 +184,14 @@ export function SpeechToTextClient() {
             onClick={handleTranscribe}
             className="flex items-center gap-2 w-full sm:w-auto"
             size="lg"
+            disabled={isTranscribing}
           >
-            <Wand2 className="h-5 w-5" />
-            Transcribe Audio
+            {isTranscribing ? (
+              <LoadingState type="button" />
+            ) : (
+              <Wand2 className="h-5 w-5" />
+            )}
+            {isTranscribing ? "Transcribing..." : "Transcribe Audio"}
           </Button>
         </div>
       )}
@@ -148,9 +211,14 @@ export function SpeechToTextClient() {
             onClick={handleReset}
             variant="outline"
             className="flex items-center gap-2 w-full sm:w-auto"
+            disabled={isResetting}
           >
-            <Mic className="h-5 w-5" />
-            New Recording
+            {isResetting ? (
+              <LoadingState type="button" />
+            ) : (
+              <Mic className="h-5 w-5" />
+            )}
+            {isResetting ? "Resetting..." : "New Recording"}
           </Button>
         </div>
       )}
@@ -162,9 +230,14 @@ export function SpeechToTextClient() {
             onClick={handleRetry}
             variant="outline"
             className="flex items-center gap-2 w-full sm:w-auto"
+            disabled={isRetrying}
           >
-            <Wand2 className="h-5 w-5" />
-            Retry Transcription
+            {isRetrying ? (
+              <LoadingState type="button" />
+            ) : (
+              <Wand2 className="h-5 w-5" />
+            )}
+            {isRetrying ? "Retrying..." : "Retry Transcription"}
           </Button>
         </div>
       )}
